@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="bahmankalali" created="Mon Jun 01 15:14:10 EDT 2015" description="JSON To Xml&lt;OrderTshirt&gt;" guiVersion="3.4.4.P" id="1433473699354" licenseCode="Unlicensed" licenseType="Unknown" modified="Mon Jun 01 15:14:10 EDT 2015" modifiedBy="bahmankalali" name="JSON_To_Xml_OrderTshirt_" preview-file="${Project_Home}/src/main/api/example/order-example.json" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="a59e6b5a-a3d8-479d-92af-3cb518125739">
+<Record fieldDelimiter="," name="object" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/email" containerType="SINGLE" label="email" name="email" type="string"/>
+<Field __index="1" __sourcePath="{}/object/address1" containerType="SINGLE" label="address1" name="address1" type="string"/>
+<Field __index="2" __sourcePath="{}/object/address2" containerType="SINGLE" label="address2" name="address2" type="string"/>
+<Field __index="3" __sourcePath="{}/object/city" containerType="SINGLE" label="city" name="city" type="string"/>
+<Field __index="4" __sourcePath="{}/object/country" containerType="SINGLE" label="country" name="country" type="string"/>
+<Field __index="5" __sourcePath="{}/object/name" containerType="SINGLE" label="name" name="name" type="string"/>
+<Field __index="6" __sourcePath="{}/object/postalCode" containerType="SINGLE" label="postalCode" name="postalCode" type="string"/>
+<Field __index="7" __sourcePath="{}/object/size" containerType="SINGLE" label="size" name="size" type="string"/>
+<Field __index="8" __sourcePath="{}/object/stateOrProvince" containerType="SINGLE" label="stateOrProvince" name="stateOrProvince" type="string"/>
+</Record>
+</Metadata>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt" _dataStructure="OBJECT" _id="__id" _type="Output" id="b46aaca7-273a-4291-bd5f-c21de4512201">
+<Record fieldDelimiter="," name="OrderTshirt" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/size" containerType="SINGLE" label="size" name="size" type="string"/>
+<Field __index="1" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/email" containerType="SINGLE" label="email" name="email" type="string"/>
+<Field __index="2" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/name" containerType="SINGLE" label="name" name="name" type="string"/>
+<Field __index="3" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/address1" containerType="SINGLE" label="address1" name="address1" type="string"/>
+<Field __index="4" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/address2" containerType="SINGLE" label="address2" name="address2" type="string"/>
+<Field __index="5" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/city" containerType="SINGLE" label="city" name="city" type="string"/>
+<Field __index="6" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/stateOrProvince" containerType="SINGLE" label="stateOrProvince" name="stateOrProvince" type="string"/>
+<Field __index="7" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/postalCode" containerType="SINGLE" label="postalCode" name="postalCode" type="string"/>
+<Field __index="8" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirt/country" containerType="SINGLE" label="country" name="country" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:element clover:name="ns0:OrderTshirt" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://mulesoft.org/tshirt-service" clover:inPort="0">
+  <size>$0.size</size>
+  <email>$0.email</email>
+  <name>$0.name</name>
+  <address1>$0.address1</address1>
+  <address2>$0.address2</address2>
+  <city>$0.city</city>
+  <stateOrProvince>$0.stateOrProvince</stateOrProvince>
+  <postalCode>$0.postalCode</postalCode>
+  <country>$0.country</country>
+</clover:element>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'object' -&gt; 'ns0:OrderTshirt'" guiX="460" guiY="20" id="FOREACH_OBJECT_NS0_ORDER_TSHIRT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.email = input.email;
+output.address1 = input.address1;
+output.address2 = input.address2;
+output.city = input.city;
+output.country = input.country;
+output.name = input.name;
+output.postalCode = input.postalCode;
+output.size = input.size;
+output.stateOrProvince = input.stateOrProvince;
+]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="JSON READER" guiX="20" guiY="20" id="JSON_READER0" type="JSON_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context xpath="/root">
+  <Context outPort="0" sequenceField="__id" xpath="object">
+    <Mapping cloverField="email" trim="true" xpath="email"/>
+    <Mapping cloverField="address1" trim="true" xpath="address1"/>
+    <Mapping cloverField="address2" trim="true" xpath="address2"/>
+    <Mapping cloverField="city" trim="true" xpath="city"/>
+    <Mapping cloverField="country" trim="true" xpath="country"/>
+    <Mapping cloverField="name" trim="true" xpath="name"/>
+    <Mapping cloverField="postalCode" trim="true" xpath="postalCode"/>
+    <Mapping cloverField="size" trim="true" xpath="size"/>
+    <Mapping cloverField="stateOrProvince" trim="true" xpath="stateOrProvince"/>
+  </Context>
+</Context>
+]]></attr>
+<attr name="__isJsonSchema"><![CDATA[false]]></attr>
+<attr name="_data_format"><![CDATA[JSON]]></attr>
+<attr name="jsonSchemaURL"><![CDATA[./src/main/api/example/order-example.json]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_OBJECT_NS0_ORDER_TSHIRT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="b46aaca7-273a-4291-bd5f-c21de4512201" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="JSON_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="a59e6b5a-a3d8-479d-92af-3cb518125739" outPort="Port 0 (out)" toNode="FOREACH_OBJECT_NS0_ORDER_TSHIRT:0"/>
+</Phase>
+</Graph>

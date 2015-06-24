@@ -1,0 +1,44 @@
+
+    {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "properties": {
+        "email": {
+          "type": "string",
+          "required": true
+        },
+        "address1": {
+          "type": "string",
+          "required": true
+        }
+        ,
+        "address2": {
+          "type": "string",
+          "required": true
+        },
+        "city": {
+          "type": "string",
+          "required": false
+        },
+        "country": {
+          "type": "string",
+          "required": false
+        },
+          "name": {
+          "type": "string",
+          "required": false
+        },
+          "postalCode": {
+          "type": "string",
+          "required": false
+        },
+        "size": {
+          "type": "string",
+          "required": false
+        },
+        "stateOrProvince": {
+          "type": "string",
+          "required": false
+        }
+      }
+    }

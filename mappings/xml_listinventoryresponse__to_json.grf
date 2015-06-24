@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="bahmankalali" created="Mon Jun 01 15:14:10 EDT 2015" description="Xml&lt;ListInventoryResponse&gt; To JSON" guiVersion="3.4.4.P" id="1433522321461" licenseCode="Unlicensed" licenseType="Unknown" modified="Mon Jun 01 15:14:10 EDT 2015" modifiedBy="bahmankalali" name="Xml_ListInventoryResponse__To_JSON" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __schemaType="{http://mulesoft.org/tshirt-service}InventoryItem" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:ListInventoryResponse/inventory" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="733a4500-ea20-4647-9441-59d48cae8451" _parent_id="__parent_id" _type="Input" id="9d90be3c-0c7f-4673-808f-3f5afccfd119">
+<Record fieldDelimiter="," name="inventory" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __schemaType="{http://mulesoft.org/tshirt-service}InventoryItem" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:ListInventoryResponse/inventory/productCode" containerType="SINGLE" label="productCode" name="productCode" type="string"/>
+<Field __index="1" __schemaType="{http://mulesoft.org/tshirt-service}InventoryItem" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:ListInventoryResponse/inventory/size" containerType="SINGLE" label="size" name="size" type="string"/>
+<Field __index="2" __schemaType="{http://mulesoft.org/tshirt-service}InventoryItem" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:ListInventoryResponse/inventory/description" containerType="SINGLE" label="description" name="description" type="string"/>
+<Field __index="3" __schemaType="{http://mulesoft.org/tshirt-service}InventoryItem" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:ListInventoryResponse/inventory/count" containerType="SINGLE" label="count" name="count" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object/inventory" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="fdc0bed7-37ed-442d-9203-07b33cf3ae09" _parent_id="__parent_id" _type="Output" id="28084aeb-ed7d-4708-8305-0bbffcaa3f41">
+<Record fieldDelimiter="," name="inventory" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/inventory/productCode" containerType="SINGLE" label="productCode" name="productCode" type="string"/>
+<Field __index="1" __sourcePath="{}/object/inventory/size" containerType="SINGLE" label="size" name="size" type="string"/>
+<Field __index="2" __sourcePath="{}/object/inventory/description" containerType="SINGLE" label="description" name="description" type="string"/>
+<Field __index="3" __sourcePath="{}/object/inventory/count" containerType="SINGLE" label="count" name="count" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:ListInventoryResponse" _dataStructure="OBJECT" _id="__id" _type="Input" id="733a4500-ea20-4647-9441-59d48cae8451">
+<Record fieldDelimiter="," name="ListInventoryResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="fdc0bed7-37ed-442d-9203-07b33cf3ae09">
+<Record fieldDelimiter="," name="object" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'inventory' -&gt; 'inventory'" guiX="460" guiY="120" id="FOREACH_INVENTORY_INVENTORY" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.productCode = input.productCode;
+output.size = input.size;
+output.description = input.description;
+output.count = input.count;
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'ns0:ListInventoryResponse' -&gt; 'object'" guiX="460" guiY="20" id="FOREACH_NS0_LIST_INVENTORY_RESPONSE_OBJECT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+]]></attr>
+</Node>
+<Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="JSON WRITER" guiX="900" guiY="20" id="JSON_WRITER0" type="JSON_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <clover:collection clover:name="inventory">
+    <item clover:inPort="1" clover:key="__parent_id" clover:parentKey="__id">
+      <productCode>$1.productCode</productCode>
+      <size>$1.size</size>
+      <description>$1.description</description>
+      <count>$1.count</count>
+    </item>
+  </clover:collection>
+</object>]]></attr>
+<attr name="__isJsonSchema"><![CDATA[false]]></attr>
+<attr name="_data_format"><![CDATA[JSON]]></attr>
+<attr name="jsonSchemaURL"><![CDATA[./src/main/api/example/inventory-example-out.json]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context namespacePaths="ns0=&quot;http://mulesoft.org/tshirt-service&quot;" outPort="0" sequenceField="__id" xpath="/ns0:ListInventoryResponse">
+  <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="inventory">
+    <Mapping cloverField="productCode" trim="true" xpath="productCode"/>
+    <Mapping cloverField="size" trim="true" xpath="size"/>
+    <Mapping cloverField="description" trim="true" xpath="description"/>
+    <Mapping cloverField="count" trim="true" xpath="count"/>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_INVENTORY_INVENTORY:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="28084aeb-ed7d-4708-8305-0bbffcaa3f41" outPort="Port 0 (out)" toNode="JSON_WRITER0:1"/>
+<Edge debugMode="true" fromNode="FOREACH_NS0_LIST_INVENTORY_RESPONSE_OBJECT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="fdc0bed7-37ed-442d-9203-07b33cf3ae09" outPort="Port 0 (out)" toNode="JSON_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="733a4500-ea20-4647-9441-59d48cae8451" outPort="Port 0 (out)" toNode="FOREACH_NS0_LIST_INVENTORY_RESPONSE_OBJECT:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="9d90be3c-0c7f-4673-808f-3f5afccfd119" outPort="Port 1 (out)" toNode="FOREACH_INVENTORY_INVENTORY:0"/>
+</Phase>
+</Graph>

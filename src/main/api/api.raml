@@ -1,0 +1,38 @@
+#%RAML 0.8
+---
+title: Proxy Order API from JSON to SOAP in Cloud
+version: 1.0
+baseUri: http://localhost:8082/api
+
+/order:
+  post:
+    description: Add a new order
+    body:
+      application/json:
+            schema: !include schemas/order-in.json
+            example: !include example/order-example-in.json
+       
+    responses:
+      201:
+        description: |
+          The order has been succesfully created
+        headers:
+          Location:
+            type: string
+            description: Location of the newly created order
+      409:
+        description: |
+          The order already exists, Not not coded to support this
+/inventory:
+     get:
+        description: Retrieve a list of matches for the current season
+        responses:
+          200:
+            body:
+              application/json:
+                schema:  !include schemas/inventory-out.json 
+                example: !include example/inventory-example-out.json          
+                
+   
+
+ 

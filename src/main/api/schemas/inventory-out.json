@@ -1,0 +1,31 @@
+             {
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "items": {
+                      "description": "An inventory of tshirts.",
+                      "name": "Inventory",
+                      "properties": {
+                          "productCode": {
+                              "description": "Code of product",
+                              "type": "string"
+                          },
+                          "size": {
+                              "description": "size of shirt",
+                              "type": "string",
+                              "maxLength": 2,
+                              "minLength": 1
+                          },
+                          "description": {
+                              "description": "description of product",
+                              "type": "string"
+                          },
+                          "count": {
+                              "description": "Number of products",
+                              "type": "integer"
+                          }
+                      },
+                      "type": "object"
+                  },
+                  "name": "Inventories",
+                  "required": true,
+                  "type": "array"
+              }

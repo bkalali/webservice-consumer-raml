@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="alejandrorascovan" created="Wed Mar 05 17:30:21 GMT-03:00 2014" description="Xml&lt;OrderTshirtResponse&gt; To JSON" guiVersion="3.4.3.P" id="1394051891589" licenseCode="Unlicensed" licenseType="Unknown" modified="Wed Mar 05 17:30:22 GMT-03:00 2014" modifiedBy="alejandrorascovan" name="Xml_OrderTshirtResponse__To_JSON" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirtResponse" _dataStructure="OBJECT" _id="__id" _type="Input" id="0984938c-6bd0-4f30-a05b-aea1b51b276e">
+<Record fieldDelimiter="," name="OrderTshirtResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{http://mulesoft.org/tshirt-service=ns0}/ns0:OrderTshirtResponse/orderId" containerType="SINGLE" label="orderId" name="orderId" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/OrderTshirtResponse" _dataStructure="OBJECT" _id="__id" _type="Output" id="93ed9b53-77ba-416e-a810-8895bdb20d52">
+<Record fieldDelimiter="," name="OrderTshirtResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/OrderTshirtResponse/orderId" containerType="SINGLE" label="orderId" name="orderId" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'ns0:OrderTshirtResponse' -&gt; 'OrderTshirtResponse'" guiX="460" guiY="20" id="FOREACH_NS0_ORDER_TSHIRT_RESPONSE_ORDER_TSHIRT_RESPONSE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.orderId = input.orderId;
+]]></attr>
+</Node>
+<Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="JSON WRITER" guiX="900" guiY="20" id="JSON_WRITER0" type="JSON_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<OrderTshirtResponse xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <orderId>$0.orderId</orderId>
+</OrderTshirtResponse>]]></attr>
+<attr name="_data_format"><![CDATA[JSON]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context namespacePaths="ns0=&quot;http://mulesoft.org/tshirt-service&quot;" outPort="0" sequenceField="__id" xpath="/ns0:OrderTshirtResponse">
+  <Mapping cloverField="orderId" trim="true" xpath="orderId"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_NS0_ORDER_TSHIRT_RESPONSE_ORDER_TSHIRT_RESPONSE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="93ed9b53-77ba-416e-a810-8895bdb20d52" outPort="Port 0 (out)" toNode="JSON_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="0984938c-6bd0-4f30-a05b-aea1b51b276e" outPort="Port 0 (out)" toNode="FOREACH_NS0_ORDER_TSHIRT_RESPONSE_ORDER_TSHIRT_RESPONSE:0"/>
+</Phase>
+</Graph>

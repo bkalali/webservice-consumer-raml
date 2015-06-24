@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:context="http://www.springframework.org/schema/context" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" version="EE-3.6.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+    
+    <context:property-placeholder location="api.properties"/>
+    
+    <apikit:config name="apiConfig" raml="api.raml" consoleEnabled="false" doc:name="Router"/>
+    <ws:consumer-config name="Web_Service_Consumer-raml" wsdlLocation="tshirt.wsdl" service="TshirtService" port="TshirtServicePort" serviceAddress="http://tshirt-service.cloudhub.io" doc:name="Web Service Consumer"/>
+    <data-mapper:config name="String_To_Xml_AuthenticationHeader_" transformationGraphPath="string_to_xml_authenticationheader_.grf" doc:name="String_To_Xml_AuthenticationHeader_"/>
+    <data-mapper:config name="JSON_To_Xml_OrderTshirt_" transformationGraphPath="json_to_xml_ordertshirt_.grf" doc:name="JSON_To_Xml_OrderTshirt_"/>
+    <data-mapper:config name="Xml_OrderTshirtResponse__To_JSON" transformationGraphPath="xml_ordertshirtresponse__to_json.grf" doc:name="Xml_OrderTshirtResponse__To_JSON"/>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.port}" doc:name="HTTP Listener Configuration"/>
+    <apikit:mapping-exception-strategy name="apiKitGlobalExceptionMapping" >  
+        <apikit:mapping statusCode="404"> 
+            <apikit:exception value="org.mule.module.apikit.exception.NotFoundException"/>  
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"></set-property>  
+            <set-payload value="{ &quot;message&quot;: &quot;Resource not found&quot; }" doc:name="Set Payload"></set-payload> 
+        </apikit:mapping>  
+        <apikit:mapping statusCode="405"> 
+            <apikit:exception value="org.mule.module.apikit.exception.MethodNotAllowedException"/>  
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"></set-property>  
+            <set-payload value="{ &quot;message&quot;: &quot;Method not allowed&quot; }" doc:name="Set Payload"></set-payload> 
+        </apikit:mapping>  
+        <apikit:mapping statusCode="415"> 
+            <apikit:exception value="org.mule.module.apikit.exception.UnsupportedMediaTypeException"/>  
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"></set-property>  
+            <set-payload value="{ &quot;message&quot;: &quot;Unsupported media type&quot; }" doc:name="Set Payload"></set-payload> 
+        </apikit:mapping>  
+        <apikit:mapping statusCode="406"> 
+            <apikit:exception value="org.mule.module.apikit.exception.NotAcceptableException"/>  
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"></set-property>  
+            <set-payload value="{ &quot;message&quot;: &quot;Not acceptable&quot; }" doc:name="Set Payload"></set-payload> 
+        </apikit:mapping>  
+        <apikit:mapping statusCode="400"> 
+            <apikit:exception value="org.mule.module.apikit.exception.BadRequestException"/>  
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"></set-property>  
+            <set-payload value="{ &quot;message&quot;: &quot;Bad request&quot; }" doc:name="Set Payload"></set-payload> 
+        </apikit:mapping> 
+    </apikit:mapping-exception-strategy>
+    <data-mapper:config name="Xml_ListInventoryResponse__To_JSON" transformationGraphPath="xml_listinventoryresponse__to_json.grf" doc:name="Xml_ListInventoryResponse__To_JSON"/>
+    <flow name="main" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/api/*" doc:name="HTTP"/>
+        <apikit:router config-ref="apiConfig" doc:name="APIkit Router"/>
+        <exception-strategy ref="apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy"/>
+     </flow>
+
+    <flow name="console" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/console/*" doc:name="HTTP"/>
+        <apikit:console config-ref="apiConfig" doc:name="APIkit Console"/>
+    </flow>
+    
+     <flow name="post:/order:apiConfig" >
+        <logger message=" payload is: #[payload]" level="INFO" doc:name="Logger" />
+        <data-mapper:transform config-ref="JSON_To_Xml_OrderTshirt_" doc:name="JSON To Xml&lt;OrderTshirt&gt;"/>
+        <set-variable variableName="apiKey" value="#['abc12345']" doc:name="Set Api Key"/>
+        <data-mapper:transform config-ref="String_To_Xml_AuthenticationHeader_" input-ref="#[flowVars[&quot;apiKey&quot;]]" 
+        target="#[message.outboundProperties[&quot;soap.header&quot;]]" doc:name="String To Xml&lt;AuthenticationHeader&gt;"/>
+        <ws:consumer config-ref="Web_Service_Consumer-raml" operation="OrderTshirt" doc:name="Order Tshirt"/>
+         <message-properties-transformer doc:name="DeleteHttpStatus">
+         	<delete-message-property key="http.status"/>
+         </message-properties-transformer>
+        <data-mapper:transform config-ref="Xml_OrderTshirtResponse__To_JSON" doc:name="Xml&lt;OrderTshirtResponse&gt; To JSON" returnClass="java.lang.String"/>
+        <json:json-to-object-transformer doc:name="JSON to Object" returnClass="java.util.HashMap"/>
+        <set-property propertyName="Location" value="http://localhost:${http.port}/api/order/#[payload.orderId]" doc:name="setLocationOfCreatedOrder"/>
+        <set-payload value="#[org.mule.transport.NullPayload.getInstance()]" doc:name="setNullPayload"/>
+    </flow>
+    
+    <flow name="get:/inventory:apiConfig" >
+        <logger message="Get inventory is called" level="INFO" doc:name="Logger" />
+        <ws:consumer config-ref="Web_Service_Consumer-raml" operation="ListInventory" doc:name="List Inventory"/>
+        <data-mapper:transform config-ref="Xml_ListInventoryResponse__To_JSON" doc:name="Xml&lt;ListInventoryResponse&gt; To JSON"/>
+    </flow>
+</mule>

@@ -1,0 +1,28 @@
+{
+  "inventory" : [ {
+    "productCode" : "4102",
+    "size" : "L",
+    "description" : "Prueba",
+    "count" : 2
+  }, {
+    "productCode" : "1412",
+    "size" : "L",
+    "description" : "Foo",
+    "count" : 9
+  }, {
+    "productCode" : "5656",
+    "size" : "S",
+    "description" : "Bar",
+    "count" : 2
+  }, {
+    "productCode" : "5657",
+    "size" : "M",
+    "description" : "Prueba2",
+    "count" : 3
+  }, {
+    "productCode" : "1411",
+    "size" : "M",
+    "description" : "Awesome Tshirt",
+    "count" : 5
+  } ]
+}
