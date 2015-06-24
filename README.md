@@ -1,7 +1,7 @@
 <snippet>
 <content>
 ## Consuming back-end SOAP APIs from front end RAML APIs
-This example application is used to consume two SOAP APIs from CloudHub http://tshirt-service.cloudhub.io SOAP service
+This example application is used to consume two SOAP APIs from CloudHub http://tshirt-service.cloudhub.io/?wsdl SOAP service
    
  
 ## Prerequisite
