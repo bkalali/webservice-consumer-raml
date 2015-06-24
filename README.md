@@ -9,7 +9,7 @@ This example application is used to consume two SOAP APIs from CloudHub http://t
 2. JavaSE-1.7.0_71
 3. Apache Maven 3.1.1
 4. Mule Runtime 3.6.1 EE
-    Note: Do not use 3.6.2 EE. As of writing this article, the ApiKit 1.6.1 still is not compatible with 3.6.2 EE
+    Note: Do not use 3.6.2 EE. As of writing this code, the ApiKit 1.6.1 still is not compatible with 3.6.2 EE
 5. Mule Module APIKit 1.6.1
 
 
