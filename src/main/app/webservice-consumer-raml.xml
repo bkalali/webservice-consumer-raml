@@ -71,7 +71,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
          </message-properties-transformer>
         <data-mapper:transform config-ref="Xml_OrderTshirtResponse__To_JSON" doc:name="Xml&lt;OrderTshirtResponse&gt; To JSON" returnClass="java.lang.String"/>
         <json:json-to-object-transformer doc:name="JSON to Object" returnClass="java.util.HashMap"/>
-        <set-property propertyName="Location" value="http://localhost:${http.port}/api/order/#[payload.orderId]" doc:name="setLocationOfCreatedOrder"/>
+        <set-property propertyName="Location" value="http://0.0.0.0:${http.port}/api/order/#[payload.orderId]" doc:name="setLocationOfCreatedOrder"/>
         <set-payload value="#[org.mule.transport.NullPayload.getInstance()]" doc:name="setNullPayload"/>
     </flow>
     

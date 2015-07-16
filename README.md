@@ -15,7 +15,7 @@ This example application is used to consume two SOAP APIs from CloudHub http://t
 
 
 ## Build, Install and run
-1. You van either use "mvn clean install" and install the app in an standalone mule instance 3.6.1 EE     
+1. You can either use "mvn clean install" and install the app in an standalone mule instance 3.6.1 EE     
 2. Or, you can run it on  Anypoint Studio 5.1.2, using "Run as->Mule Application with Maven" 
 
 
