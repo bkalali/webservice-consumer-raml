@@ -45,6 +45,10 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
             <apikit:exception value="org.mule.module.apikit.exception.BadRequestException"/>  
             <set-property propertyName="Content-Type" value="application/json" doc:name="Property"></set-property>  
             <set-payload value="{ &quot;message&quot;: &quot;Bad request&quot; }" doc:name="Set Payload"></set-payload> 
+        </apikit:mapping>
+        <apikit:mapping statusCode="409">
+            <apikit:exception value="org.appnovation.apikit.exceptions.ConflictException" />
+            <set-payload value="conflict" />
         </apikit:mapping> 
     </apikit:mapping-exception-strategy>
     <data-mapper:config name="Xml_ListInventoryResponse__To_JSON" transformationGraphPath="xml_listinventoryresponse__to_json.grf" doc:name="Xml_ListInventoryResponse__To_JSON"/>
